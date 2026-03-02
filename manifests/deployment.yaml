@@ -1,0 +1,25 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-date-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-date
+  template:
+    metadata:
+      labels:
+        app: nginx-date
+      annotations:
+        # The GitHub Action updates this line to trigger ArgoCD
+        build-id: "initial-build"
+    spec:
+      containers:
+      - name: nginx
+        # REPLACE 'your-dockerhub-username' with your actual username
+        image: nickbernstein/nginx-date-build:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
