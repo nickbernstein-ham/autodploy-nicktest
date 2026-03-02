@@ -7,6 +7,7 @@ metadata:
     # Adjust the annotation below to match your Ingress controller
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
+  ingressClassName: haproxy
   rules:
     - host: autodeploy.hri.testinglab.tech
       http:
