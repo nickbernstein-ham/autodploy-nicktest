@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-nginx-app
+  namespace: argocd # Must match the namespace of your Argo CD instance
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/nickbernstein-ham/autodploy-nicktest.git
+    targetRevision: HEAD # or a specific branch/tag (e.g., 'main')
+    path: manifests
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: nick-test # The target namespace in your cluster for the app resources
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
